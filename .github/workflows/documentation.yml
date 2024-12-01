@@ -2,10 +2,8 @@
 
 on:
   workflow_dispatch:
-    branches:
-      - master
   registry_package:
-    types: [published, updated]
+    types: [published]
 
 concurrency:
   group: "pages"

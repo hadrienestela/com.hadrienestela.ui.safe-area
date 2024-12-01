@@ -1,0 +1,21 @@
+{
+  "name": "com.hadrienestela.ui.safe-area",
+  "displayName": "Safe Area",
+  "description": "Mobile safe area helper",
+  "documentationUrl": "https://hadrienestela.github.io/com.hadrienestela.ui.safe-area",
+  "changelogUrl": "https://hadrienestela.github.io/com.hadrienestela.ui.safe-area/CHANGELOG.html",
+  "licensesUrl": "https://hadrienestela.github.io/com.hadrienestela.ui.safe-area/LICENSE.html",
+  "version": "1.0.0-development",
+  "unity": "2019.2",
+  "author": {
+    "name": "Hadrien ESTELA",
+    "email": "hadrienestela@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hadrienestela/com.hadrienestela.ui.safe-area.git"
+  },
+  "dependencies": {
+    "com.unity.ugui": "1.0.0"
+  }
+}

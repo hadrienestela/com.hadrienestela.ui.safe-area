@@ -1,0 +1,14 @@
+{
+    "name": "HadrienEstela.UI.SafeArea",
+    "rootNamespace": "HadrienEstela.UI.SafeArea",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

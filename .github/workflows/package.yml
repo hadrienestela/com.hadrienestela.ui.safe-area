@@ -1,0 +1,41 @@
+name: Publish Package
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  actions: read
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout the code
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        lfs: true
+
+    # Set up Node.js
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    # Configure .npmrc
+    - name: Configure npm authentication
+      run: |
+        echo "registry=https://npm.pkg.github.com/@${{ github.actor }}" > ~/.npmrc
+        echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
+
+    # Set package version
+    - name: Update package version
+      run: npm version ${{ github.event.release.tag_name }} --no-git-tag-version
+
+    # Publish to GitHub Packages
+    - name: Publish package
+      run: npm publish

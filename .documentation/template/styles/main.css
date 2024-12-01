@@ -1,0 +1,11 @@
+html, body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.navbar-brand {
+    padding: 8.4px !important;
+}
+
+.inheritedMembers {
+    display:none;
+}

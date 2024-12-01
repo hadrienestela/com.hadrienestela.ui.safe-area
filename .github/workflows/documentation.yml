@@ -1,0 +1,71 @@
+﻿name: Generate Documentation
+
+on:
+  workflow_dispatch:
+    branches:
+      - master
+  registry_package:
+    types: [published, updated]
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: read
+    
+    steps:
+      # Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          lfs: true
+        
+      # Setup .NET SDK
+      - name: Dotnet Setup
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.x
+
+      # Install DocFX
+      - name: Install DocFX
+        run: dotnet tool update -g docfx
+          
+      # Generate API pages
+      - name: Generate API pages
+        run: docfx metadata .documentation/docfx.json
+        
+      # Use Readme as homepage
+      - name: Use README.md as homepage
+        run: cp -f README.md .documentation/index.md
+        
+      # Build site.
+      - name: Build HTML pages
+        run: docfx build .documentation/docfx.json
+
+      # Upload site content
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.documentation/dist'
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    
+    permissions:
+      pages: write
+      id-token: write
+    
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
